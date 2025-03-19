@@ -39,7 +39,7 @@ const login = async (req, res) => {
 }
 
 /**
- * @route /api/user/register
+ * @route POST /api/user/register
  * @desc Регистрация
  * @access Public
  */
@@ -84,8 +84,13 @@ const register = async (req, res) => {
         return res.status(400).js({ message: "Не удалось создать нового пользователя"})
     }
 }
+/**
+ * @route GET /api/user/current 
+ * @desc Получение текущего пользователя
+ * @access Private
+ */
 const current = async (req, res) => {
-    res.send('current');
+    return res.status(200).json(req.user)
 }
 
 module.exports = {
