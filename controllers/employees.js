@@ -49,11 +49,94 @@ const add = async (req, res, next) => {
         return res.status(201).json(employee);
 
     } catch(error) {
-        res.status(500).json(error/*{ message: "Что-то пошло не так" }*/)
+        res.status(500).json({ message: "Что-то пошло не так" })
+    }
+}
+
+/**
+ * @route POST /api/employees/remove/:id
+ * @desc Удалить сотрудника
+ * @access Private
+ */
+const remove = async (req, res, next) => {
+    try {
+        //const { id } = req.body;
+        const { id } = req.params;
+
+        if (!id) {
+            return res.status(400).json({ message: 'Некорректный id сотрудника' })
+        }
+
+        await prisma.employee.delete({
+            where: {
+                id
+            }
+        })
+
+        res.status(204).json('ok')
+
+    } catch(error) {
+        res.status(500).json({ message: "Что-то пошло не так" })
+    }
+}
+
+/**
+ * @route PUT /api/employees/edit/:id
+ * @desc Обновление данных сотрудника
+ * @access Private
+ */
+const edit = async (req, res, next) => {
+    try {
+        const data = req.body;
+        const { id } = req.params
+
+        if (!id) {
+            return res.status(400).json({ message: 'Некорректный id сотрудника' })
+        }
+
+        if (Object.keys(data).length === 0) {
+            return res.status(400).json({ message: 'Отсутствуют параметры сотрудника для изменения' })
+        }
+        
+        await prisma.employee.update({
+            where: {
+                id: id
+            },
+            data
+        })
+
+        res.status(204).json('ok')
+
+    } catch(error) {
+        res.status(500).json({ message: "Что-то пошло не так" })
+    }
+}
+
+/**
+ * @route GET /api/employees/:id
+ * @desc Получение данных сотрудника
+ * @access Private
+ */
+const getSingle = async (req, res, next) => {
+    const { id } = req.params;
+
+    try {
+        const employee = await prisma.employee.findUnique({
+            where: {
+                id
+            }
+        })
+
+        res.status(200).json(employee);
+    } catch(error) {
+        res.status(500).json({ message: "Что-то пошло не так" })
     }
 }
 
 module.exports = {
     getAll,
     add,
+    remove,
+    edit,
+    getSingle
 }
