@@ -2,6 +2,7 @@ import React from "react"
 import { createRoot } from "react-dom/client"
 import { Provider } from "react-redux"
 import { RouterProvider, createBrowserRouter } from "react-router-dom"
+import { ConfigProvider, theme } from "antd"
 import { store } from "./app/store"
 import { Paths } from "./paths"
 import { Login } from "./pages/login"
@@ -31,7 +32,11 @@ if (container) {
   root.render(
     <React.StrictMode>
       <Provider store={store}>
-        <RouterProvider router={router}/>
+        <ConfigProvider theme={{
+          algorithm: theme.darkAlgorithm
+        }}>
+          <RouterProvider router={router}/>
+        </ConfigProvider>
       </Provider>
     </React.StrictMode>,
   )
