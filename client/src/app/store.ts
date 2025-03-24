@@ -2,6 +2,7 @@ import type { Action, ThunkAction } from "@reduxjs/toolkit"
 import { combineSlices, configureStore } from "@reduxjs/toolkit"
 import auth from '../features/auth/authSlice'
 import { api } from "./services/api"
+import { listenerMiddleware } from "../middleware/auth"
 
 export type RootState = ReturnType<typeof store.getState>
 
@@ -13,7 +14,7 @@ export const store = configureStore({
     auth
   },
   middleware: (getDefaultMiddleware) => {
-    return getDefaultMiddleware().concat(api.middleware);
+    return getDefaultMiddleware().concat(api.middleware).prepend(listenerMiddleware.middleware);
   }
 })
 
