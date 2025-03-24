@@ -1,12 +1,20 @@
 import type { Action, ThunkAction } from "@reduxjs/toolkit"
 import { combineSlices, configureStore } from "@reduxjs/toolkit"
+import auth from '../features/auth/authSlice'
+import { api } from "./services/api"
 
 export type RootState = ReturnType<typeof store.getState>
 
 // The store setup is wrapped in `makeStore` to allow reuse
 // when setting up tests that need the same store config
 export const store = configureStore({
-  reducer: {},
+  reducer: {
+    [api.reducerPath]: api.reducer,
+    auth
+  },
+  middleware: (getDefaultMiddleware) => {
+    return getDefaultMiddleware().concat(api.middleware);
+  }
 })
 
 // Infer the type of `store`
