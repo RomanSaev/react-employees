@@ -9,11 +9,12 @@ import { Login } from "./pages/login"
 import { Register } from "./pages/register"
 import "./index.css"
 import { Auth } from "./features/auth/auth"
+import { Employees } from "./pages/employees"
 
 const router = createBrowserRouter([
   {
     path: Paths.home,
-    element: <h1>Employees App</h1>
+    element: <Employees />
   },
   {
     path: Paths.login,
