@@ -23,7 +23,7 @@ export const authApi = api.injectEndpoints({
         current: builder.query<ResponseLoginData, void>({
         //current: builder.query<User, void>({ //#TODO не работает почему-то( хотя token из /current не приходит по идее)
             query: () => ({
-                url: '/users/register',
+                url: '/users/current',
                 method: 'GET',
             })              
         })
