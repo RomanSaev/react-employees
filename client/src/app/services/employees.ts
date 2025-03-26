@@ -44,7 +44,7 @@ export const {
   useGetEmployeeQuery,
   useEditEmployeeMutation,
   useRemoveEmployeeMutation,
-  useLazyGetAllEmployeesQuery,
+  useAddEmployeeMutation,
 } = employeesApi
 
 export const {
