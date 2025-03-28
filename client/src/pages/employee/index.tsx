@@ -70,7 +70,7 @@ export const Employee = () => {
                     <>
                         <Divider orientation='left'>Действия</Divider>
                         <Space>
-                            <Link to={`/employee/edit/${data.id}`}>
+                            <Link to={`${Paths.employeeEdit}/${data.id}`}>
                                 <CustomButton
                                     shape='round'
                                     type='default'
